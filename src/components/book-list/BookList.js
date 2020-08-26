@@ -1,13 +1,23 @@
 import React, { useCallback, useEffect } from 'react';
-import './bookList.css';
+import './bookList.sass';
 import BookListItem from '../book-list-item';
 import { connect } from 'react-redux';
 import { bookLoaded } from '../../actions';
+import WithBookStoreService from '../hoc';
+import { bindActionCreators } from 'redux';
+import { compose } from '../../utils';
 
-const BookList = ({ books }) => {
+
+
+const BookList = ({ books, service, bookLoaded }) => {
+
+
+  const getBooks = useCallback(() => bookLoaded(service.getBooks()), [bookLoaded, service]);
+
+  useEffect(() => { getBooks() }, [getBooks])
 
   return (
-    <ul>
+    <ul className='book-list'>
       {
         books.map(book => <li><BookListItem book={book}></BookListItem></li>)
       }
@@ -22,9 +32,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDisptachToProps = (dispatch) => {
-  return {
-    bookLoaded: () => dispatch(bookLoaded()),
-  }
+  return bindActionCreators({ bookLoaded }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDisptachToProps)(BookList);
+export default compose(connect(mapStateToProps, mapDisptachToProps), WithBookStoreService)(BookList);
