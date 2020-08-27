@@ -1,6 +1,3 @@
-import {BookStoreServiceProvider, BookStoreServiceConsumer} from './context';
+import Context from './context';
 
-export {
-  BookStoreServiceProvider,
-  BookStoreServiceConsumer
-};
+export default Context;

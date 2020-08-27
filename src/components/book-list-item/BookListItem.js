@@ -6,12 +6,12 @@ const BookListItem = ({ book }) => {
   return (
     <div className='book-list-item' >
       <div className='book-list-cover'>
-        <img src={cover}></img>
+        <img src={cover} alt=""></img>
       </div>
       <div className='book-list-data'>
-        <a href="#" className='book-title'>
+        <span href="#" className='book-title'>
           <span>{title}</span>
-        </a>
+        </span>
         <div className='book-author'>
           <span>{author}</span>
         </div>

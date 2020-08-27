@@ -6,7 +6,7 @@ import { BrowserRouter as Router} from 'react-router-dom';
 import App from './components/app';
 import ErrorBoundry from './components/error-boundry';
 import BookStoreService from './services/bookstore-service';
-import { BookStoreServiceProvider } from './components/context'
+import Context from './components/context'
 
 import store from './store'
 
@@ -15,11 +15,11 @@ const bookStoreService = new BookStoreService();
 ReactDOM.render(
   <Provider store={store}>
     <ErrorBoundry>
-      <BookStoreServiceProvider value={bookStoreService}>
+      <Context.Provider value={bookStoreService}>
         <Router>
           <App />
         </Router>
-      </BookStoreServiceProvider>
+      </Context.Provider>
     </ErrorBoundry>
   </Provider>
   ,
