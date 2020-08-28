@@ -1,8 +1,8 @@
 import React from 'react';
 import './bookListItem.sass'
 
-const BookListItem = ({ book }) => {
-  const { title, author, price, cover } = book;
+const BookListItem = ({ book, onAddedToCart }) => {
+  const { title, author, price, cover, id } = book;
   return (
     <div className='book-list-item' >
       <div className='book-list-cover'>
@@ -18,7 +18,7 @@ const BookListItem = ({ book }) => {
         <div className='book-price'>
           <span>{price}</span>
         </div>
-        <button className='btn btn-info'>Add to Cart</button>
+        <button onClick = {()=>onAddedToCart(id)} className='btn btn-info'>Add to Cart</button>
       </div>
 
     </div>

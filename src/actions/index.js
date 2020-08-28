@@ -28,6 +28,14 @@ const fetchBooks = (dispatch, service) => async () => {
   }
 }
 
+const onAddedToCart = (id) => {
+  return {
+    type: 'BOOK_ADD_TO_CART',
+    payload: id
+  }
+}
+
 export {
   fetchBooks,
+  onAddedToCart,
 }
