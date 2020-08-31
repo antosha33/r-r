@@ -1,29 +1,36 @@
 import React from 'react';
 import './carttable.sass';
 import { connect } from 'react-redux';
+import { onDecrease, onDelete, onAddedToCart } from '../../actions';
 
 const CartTable = ({ items, total, onIncrease, onDecrease, onDelete }) => {
+
   const showRows = () => {
     return (
-      items.map((item, idx) => (
-        <tr key={item.id}>
-          <td>{idx + 1}</td>
-          <td>{item.name}</td>
-          <td>{item.count}</td>
-          <td>{item.price}</td>
-          <td className='table-buttons'>
-            <button onClick={onIncrease} className='btn btn-outline-danger '>
-              <i className='fa fa-trash-o'></i>
-            </button>
-            <button onClick={onDecrease} className='btn btn-outline-success'>
-              <i className='fa fa-plus-circle'></i>
-            </button>
-            <button onClick={onDelete} className='btn btn-outline-warning'>
-              <i className='fa fa-minus-circle'></i>
-            </button>
-          </td>
-        </tr>
-      ))
+      items.map((item, idx) => {
+        const { id } = item;
+        return (
+          <tr key={item.id}>
+            <td>{idx + 1}</td>
+            <td>{item.name}</td>
+            <td>{item.count}</td>
+            <td>{item.price}</td>
+            <td className='table-buttons'>
+              <button onClick={() => onIncrease(id)} className='btn btn-outline-danger '>
+                <i className='fa fa-plus-circle'></i>
+              </button>
+              <button onClick={() => onDecrease(id)} className='btn btn-outline-success'>
+                <i className='fa fa-minus-circle'></i>
+              </button>
+              <button onClick={() => onDelete(id)} className='btn btn-outline-warning'>
+                <i className='fa fa-trash-o'></i>
+              </button>
+            </td>
+          </tr >
+        )
+      }
+
+      )
     )
   }
 
@@ -50,25 +57,18 @@ const CartTable = ({ items, total, onIncrease, onDecrease, onDelete }) => {
   )
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ shoppingCart: { cartItems, cartTotal } }) => {
   return {
-    items: state.cartItems,
-    total: state.cartTotal
+    items: cartItems,
+    total: cartTotal
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onIncrease: () => {
-      console.log('onIncrease')
-    },
-    onDecrease: () => {
-      console.log('onDecrease')
-    },
-    onDelete: () => {
-      console.log('onDelete')
-    }
-  }
+const mapDispatchToProps = {
+
+  onIncrease: onAddedToCart,
+  onDecrease: onDecrease,
+  onDelete: onDelete
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartTable);
