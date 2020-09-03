@@ -6,9 +6,7 @@ const bookLoaded = (newBooks) => {
 };
 
 const bookRequasted = () => {
-  return {
-    type: 'FETCH_BOOKS_REQUEST',
-  }
+  return  'FETCH_BOOKS_REQUEST';
 }
 
 const booksError = (error) => {
